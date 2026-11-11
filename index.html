@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nodemor — Software, built to sell</title>
+<meta name="description" content="Nodemor is a software studio from Sri Lanka. AI systems, web platforms and websites that help ambitious businesses look world-class and sell better. Four products live.">
+<meta name="theme-color" content="#08080a">
+<meta property="og:title" content="Nodemor — Software, built to sell">
+<meta property="og:description" content="AI systems, web platforms and websites. Not just beautiful, built to convert.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' font-style='italic' text-anchor='middle' fill='%23f3efe7'%3En%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080a;--fg:#f3efe7;--dim:rgba(243,239,231,.62);--dim2:rgba(243,239,231,.34);--line:rgba(243,239,231,.14);--gold:#d9b877;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;--sans:'Inter',ui-sans-serif,system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg);scrollbar-gutter:stable}
+body{font-family:var(--sans);color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:.95}
+.serif i{font-style:italic;color:var(--gold)}
+.lab{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);font-weight:500}
+
+/* preloader */
+#pre{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;transition:opacity .9s ease,visibility .9s}
+#pre.done{opacity:0;visibility:hidden}
+#pre .in{text-align:center}
+#pre .logo{font-family:var(--serif);font-size:clamp(40px,6vw,72px);letter-spacing:-.02em}
+#pre .logo i{color:var(--gold)}
+#pre .bar{width:180px;height:1px;background:var(--line);margin:22px auto 14px;overflow:hidden}
+#pre .bar b{display:block;height:100%;background:var(--fg);transform-origin:left;transform:scaleX(0)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:calc(22px + env(safe-area-inset-top,0px)) clamp(22px,4vw,56px) 20px;background:linear-gradient(rgba(8,8,10,.55),rgba(8,8,10,0))}
+.brand{text-decoration:none;font-family:var(--serif);font-size:26px;letter-spacing:-.02em}
+.brand i{color:var(--gold)}
+.nav ul{display:flex;gap:34px;list-style:none}
+.nav ul a{text-decoration:none;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;position:relative;color:var(--fg)}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.76,0,.24,1)}
+.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav .cta{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;text-decoration:none;padding:13px 20px;border:1px solid var(--line);backdrop-filter:blur(10px);transition:background .3s,color .3s,border-color .3s}
+.nav .cta:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+@media(max-width:760px){.nav ul{display:none}}
+
+/* ===== THE JOURNEY ===== */
+.journey{position:relative;height:940vh}
+.journey .stick{position:sticky;top:0;height:100svh;overflow:hidden;background:#000}
+.journey .grain{position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.journey .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 45%,rgba(0,0,0,.55) 100%)}
+#gl{position:absolute;inset:0}
+#gl canvas{display:block;width:100%;height:100%}
+.journey .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,8,10,.5) 0%,rgba(8,8,10,0) 20%,rgba(8,8,10,0) 40%,rgba(8,8,10,.86) 100%),linear-gradient(90deg,rgba(8,8,10,.6) 0%,rgba(8,8,10,.25) 38%,rgba(8,8,10,0) 62%)}
+.scene{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(22px,4vw,56px) clamp(64px,11vh,120px);opacity:0;pointer-events:none;will-change:opacity,transform}
+.scene.on{pointer-events:auto}
+.scene .lab{display:block;margin-bottom:18px;color:var(--fg);opacity:.75}
+.scene h1,.scene h2{font-family:var(--serif);font-weight:400;font-size:clamp(52px,10.5vw,176px);line-height:.9;letter-spacing:-.025em;max-width:11ch;text-shadow:0 2px 40px rgba(0,0,0,.35)}
+.scene h1 i,.scene h2 i{font-style:italic;color:var(--gold)}
+.scene .ln{display:block;overflow:hidden;padding-bottom:.08em}
+.scene .ln>span{display:block;will-change:transform}
+.scene p{margin-top:22px;max-width:44ch;font-size:clamp(14px,1.2vw,18px);line-height:1.6;color:var(--fg);opacity:.85;text-shadow:0 1px 20px rgba(0,0,0,.5)}
+.scene .tags{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+.scene .tags span{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;padding:9px 13px;border:1px solid rgba(243,239,231,.35);backdrop-filter:blur(8px);background:rgba(8,8,10,.25)}
+.journey .rail{position:absolute;right:clamp(22px,4vw,56px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.journey .rail button{appearance:none;background:none;border:0;color:var(--fg);font:inherit;font-size:10px;letter-spacing:.28em;text-transform:uppercase;display:flex;align-items:center;gap:12px;cursor:pointer;opacity:.4;transition:opacity .4s}
+.journey .rail button::after{content:"";width:22px;height:1px;background:currentColor;transition:width .5s cubic-bezier(.76,0,.24,1)}
+.journey .rail button[aria-current="true"]{opacity:1}
+.journey .rail button[aria-current="true"]::after{width:56px}
+@media(max-width:900px){.journey .rail{display:none}}
+.journey .hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px}
+.journey .hint i{width:1px;height:38px;background:linear-gradient(var(--fg),transparent);animation:drip 1.9s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.journey .count{position:absolute;right:clamp(22px,4vw,56px);bottom:clamp(64px,11vh,120px);font-family:var(--serif);font-size:clamp(40px,5vw,84px);line-height:.8;display:flex;align-items:baseline;gap:8px}
+.journey .count small{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--dim)}
+@media(max-width:760px){.journey .count{display:none}}
+@media(max-width:760px){.journey .hint span{display:none}.journey .hint{bottom:14px}.scene{padding-bottom:84px}}
+
+/* ===== sections after the journey ===== */
+main{position:relative;z-index:2}
+.wrap{width:min(1360px,92vw);margin:0 auto}
+section.sec{position:relative;padding:clamp(110px,17vh,220px) 0;background:var(--bg)}
+.about p.big{font-family:var(--serif);font-size:clamp(30px,4.6vw,76px);line-height:1.04;letter-spacing:-.02em;max-width:22ch}
+.about p.big .w{display:inline-block;opacity:.16;transition:opacity .5s}
+.about p.big .w.on{opacity:1}
+.about .cols{margin-top:clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:1px solid var(--line);padding-top:36px}
+@media(max-width:860px){.about .cols{grid-template-columns:1fr 1fr}}
+.about .cols b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(44px,5.4vw,88px);line-height:.9}
+.about .cols small{display:block;margin-top:12px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.head h2{font-family:var(--serif);font-weight:400;font-size:clamp(48px,8vw,136px);line-height:.9;letter-spacing:-.025em}
+.head h2 i{font-style:italic;color:var(--gold)}
+.head p{max-width:38ch;color:var(--dim);font-size:16px;line-height:1.6}
+
+/* services with photo that follows the cursor */
+.rows{margin-top:clamp(48px,8vh,96px);border-top:1px solid var(--line);position:relative}
+.rowi{display:grid;grid-template-columns:70px 1fr 1.1fr;gap:24px;align-items:center;padding:36px 0;border-bottom:1px solid var(--line);position:relative}
+@media(max-width:860px){.rowi{grid-template-columns:1fr;gap:12px}}
+.rowi .n{font-size:11px;letter-spacing:.26em;color:var(--dim2)}
+.rowi h3{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,84px);line-height:.95;letter-spacing:-.02em;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.rowi:hover h3{transform:translateX(18px);font-style:italic;color:var(--gold)}
+.rowi p{color:var(--dim);max-width:46ch;font-size:15.5px;line-height:1.65}
+.rowi .tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.rowi .tags span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:7px 10px;border:1px solid var(--line);color:var(--dim)}
+
+/* work */
+.projects{margin-top:clamp(56px,9vh,110px);display:grid;gap:clamp(90px,15vh,190px)}
+.project{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,5vw,80px);align-items:center;perspective:1800px}
+.project:nth-child(even) .copy{order:2}
+@media(max-width:900px){.project{grid-template-columns:1fr}.project:nth-child(even) .copy{order:0}}
+.project .copy .lab{display:block;margin-bottom:18px}
+.project .copy h3{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,84px);line-height:.92;letter-spacing:-.02em}
+.project .copy p{color:var(--dim);margin-top:18px;max-width:42ch;line-height:1.65;font-size:15.5px}
+.project .copy .tags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.project .copy .tags span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:7px 10px;border:1px solid var(--line);color:var(--dim)}
+.btn{position:relative;display:inline-flex;align-items:center;gap:14px;text-decoration:none;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;padding:18px 26px;border:1px solid var(--fg);overflow:hidden;isolation:isolate;margin-top:28px}
+.btn::before{content:"";position:absolute;inset:0;background:var(--fg);transform:translateY(101%);transition:transform .5s cubic-bezier(.76,0,.24,1);z-index:-1}
+.btn:hover{color:var(--bg)}.btn:hover::before{transform:translateY(0)}
+.btn svg{width:14px;height:14px}
+.btn.gold{border-color:var(--gold);color:var(--gold)}.btn.gold::before{background:var(--gold)}.btn.gold:hover{color:var(--bg)}
+
+.device{position:relative;transform-style:preserve-3d;will-change:transform;transition:transform .14s linear}
+.device .ctl{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line)}
+.seg button,.live{appearance:none;background:transparent;border:0;color:var(--dim);font:inherit;font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;padding:11px 16px;cursor:pointer;transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button+button{border-left:1px solid var(--line)}
+.live{border:1px solid var(--gold);color:var(--gold);display:inline-flex;gap:10px;align-items:center}
+.live:hover,.live[aria-pressed="true"]{background:var(--gold);color:var(--bg)}
+.live i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.viewport{position:relative;margin:0 auto;transform:translateZ(30px);transition:width .6s cubic-bezier(.76,0,.24,1),border-radius .6s}
+.viewport.desktop{width:100%;aspect-ratio:16/10;border-radius:8px;background:#111;border:1px solid var(--line);box-shadow:0 70px 120px -50px #000}
+.viewport.mobile{width:36%;min-width:230px;aspect-ratio:390/800;border-radius:38px;background:#111;border:1px solid rgba(243,239,231,.25);padding:10px;box-shadow:0 70px 120px -50px #000}
+.viewport .chrome{height:26px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line);background:#16161a;border-radius:8px 8px 0 0}
+.viewport .chrome i{width:7px;height:7px;border-radius:50%;background:#2c2c33}.viewport .chrome i:first-child{background:var(--gold)}
+.viewport .chrome span{margin-left:10px;flex:1;height:14px;background:#0c0c0f;font-size:9px;line-height:14px;padding:0 10px;color:var(--dim2);overflow:hidden;white-space:nowrap;letter-spacing:.15em}
+.viewport.mobile .chrome{display:none}
+.viewport .screenwrap{position:absolute;inset:26px 0 0;overflow:hidden;border-radius:0 0 8px 8px;background:var(--brand,#1a1a1a)}
+.viewport.mobile .screenwrap{inset:10px;border-radius:30px}
+.viewport .screenwrap img{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:top;animation:pan 16s ease-in-out infinite alternate}
+@keyframes pan{from{transform:translateY(0)}to{transform:translateY(-40%)}}
+.viewport .screenwrap iframe{position:absolute;top:0;left:0;border:0;background:#fff;transform-origin:0 0}
+.screenwrap img.loaded ~ .mock{display:none}
+.viewport.mobile::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:30%;height:7px;border-radius:999px;background:#000;z-index:3}
+
+/* process */
+.steps{margin-top:clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;counter-reset:s}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+.step{border-top:1px solid var(--line);padding-top:26px;position:relative}
+.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:44px;color:var(--gold);display:block;line-height:1;margin-bottom:18px}
+.step h3{font-family:var(--serif);font-weight:400;font-size:30px;margin-bottom:10px}
+.step p{color:var(--dim);font-size:15px;line-height:1.65}
+
+/* contact with photo backdrop */
+.contact{position:relative;min-height:110svh;display:grid;align-content:center;overflow:hidden;background:#000}
+.contact .bgimg{position:absolute;inset:-12% 0;background-size:cover;background-position:70% center;opacity:.5;will-change:transform}
+.contact::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(8,8,10,.25) 30%,rgba(8,8,10,.7) 100%),linear-gradient(90deg,rgba(8,8,10,.85) 0%,rgba(8,8,10,.5) 50%,rgba(8,8,10,.1) 100%)}
+.contact .wrap{position:relative;z-index:2}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(56px,12vw,220px);line-height:.86;letter-spacing:-.03em}
+.contact h2 i{font-style:italic;color:var(--gold)}
+.contact .rowc{margin-top:48px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.contact .rowc .btn{margin-top:0}
+.contact .meta{margin-top:56px;display:grid;grid-template-columns:repeat(3,auto);gap:48px;justify-content:start}
+@media(max-width:700px){.contact .meta{grid-template-columns:1fr;gap:22px}}
+.contact .meta a,.contact .meta span{display:block;margin-top:8px;font-family:var(--serif);font-size:24px;text-decoration:none}
+footer{position:relative;z-index:2;background:var(--bg);padding:30px 0 calc(30px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none}
+
+.rv{opacity:0;transform:translateY(40px)}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.journey{height:auto}.journey .stick{position:relative}.scene{display:none}.scene[data-i="0"]{display:block;opacity:1}.viewport .screenwrap img,.live i,.journey .hint i{animation:none}.about p.big .w{opacity:1}}
+
+/* ---- globe stops: pins, route, card ---- */
+.pins{position:absolute;inset:0;pointer-events:none;z-index:3}
+.pin-tag{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--fg);white-space:nowrap;opacity:0;transition:opacity .4s;will-change:transform;text-shadow:0 1px 10px rgba(0,0,0,.9)}
+.pin-tag::before{content:"";width:18px;height:1px;background:var(--gold)}
+.pin-tag.on{opacity:.9}
+.pin-tag.active{opacity:0}
+.leader{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
+.leader line{stroke:var(--gold);stroke-width:1;stroke-dasharray:3 4;opacity:.9}
+.leader circle{fill:none;stroke:var(--gold);stroke-width:1}
+.pcard{position:absolute;left:0;top:0;z-index:4;width:364px;background:rgba(10,10,13,.78);border:1px solid rgba(243,239,231,.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;pointer-events:none;will-change:transform,opacity;box-shadow:0 30px 70px -30px #000}
+.pcard .media{position:relative;height:204px;overflow:hidden;background:#111}
+.pcard .media img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.pcard .media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,13,.4) 0%,rgba(10,10,13,0) 26%)}
+.pcard .term{padding:9px 14px;background:#07080b;border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-height:34px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#9ff0c0;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.pcard .term b{font-weight:400;color:var(--gold)}
+.pcard .term i{display:inline-block;width:7px;height:13px;background:#9ff0c0;vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.pcard .stopn{position:absolute;left:12px;top:10px;z-index:2;font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;color:var(--fg);background:rgba(10,10,13,.55);padding:6px 9px;backdrop-filter:blur(6px)}
+.pcard .body{padding:16px 18px 18px}
+.pcard .where{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.pcard h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1;letter-spacing:-.01em;margin:8px 0 8px}
+.pcard p{font-size:13.5px;line-height:1.55;color:var(--dim)}
+.pcard .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.pcard .chips span{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--line);color:var(--fg)}
+.pcard .prog{height:1px;background:var(--line)}
+.pcard .prog b{display:block;height:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+@media(min-width:761px){
+  .scene[data-i="0"] h1{font-size:clamp(52px,8.6vw,146px)}
+  .scene:not([data-i="0"]) h2{font-size:clamp(44px,6.1vw,104px);max-width:9.5ch}
+  .scene:not([data-i="0"]) p{max-width:36ch}
+  .scene{max-width:46vw}
+}
+.journey .rail button{font-size:0}
+.journey .rail button[aria-current="true"]{font-size:10px}
+.journey .rail{right:clamp(14px,1.6vw,28px)}
+@media(max-width:760px){
+  .pcard{width:auto;left:14px!important;right:14px;top:calc(70px + env(safe-area-inset-top,0px))!important;transform:none!important;display:grid;grid-template-columns:104px 1fr}
+  .pcard .media{height:auto;min-height:118px}
+  .pcard .term{display:none}
+  .pcard .stopn{font-size:9px;padding:4px 6px;left:6px;top:6px}
+  .pcard .body{padding:10px 12px 12px}
+  .pcard h3{font-size:22px;margin:4px 0 4px}
+  .pcard p{font-size:12px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .pcard .chips{display:none}
+  .pcard .prog{grid-column:1/-1}
+  .leader{display:none}
+  .pin-tag{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.pins,.pcard,.leader{display:none}}
+
+/* ---- live project windows ---- */
+.project .copy .dom{display:inline-block;margin-top:26px;font-family:var(--serif);font-size:22px;color:var(--fg);border-bottom:1px solid var(--gold);padding-bottom:3px}
+.project .copy .explore{margin-top:14px;display:flex;align-items:center;gap:10px;color:var(--gold)}
+.project .copy .explore i{display:inline-block;width:34px;height:1px;background:var(--gold);position:relative}
+.project .copy .explore i::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid var(--gold);border-right:1px solid var(--gold);transform:rotate(45deg)}
+@media(max-width:900px){.project .copy .explore i{transform:rotate(90deg)}}
+.xbtn{appearance:none;background:transparent;border:1px solid var(--line);color:var(--fg);font:inherit;font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;padding:11px 16px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;transition:background .25s,color .25s,border-color .25s}
+.xbtn:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.xbtn svg{width:12px;height:12px}
+.device .ctl .right{display:flex;gap:10px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+.status i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 1.6s ease-in-out infinite}
+.status.off{color:var(--dim2)}.status.off i{animation:none}
+.viewport .screenwrap iframe{display:block;opacity:0;transition:opacity .6s}
+.viewport.loaded .screenwrap iframe{opacity:1}
+.viewport.loaded .screenwrap img,.viewport.loaded .mock{visibility:hidden}
+.viewport .cover{position:absolute;inset:26px 0 0;z-index:4;border:0;padding:0;margin:0;font:inherit;color:inherit;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;background:linear-gradient(180deg,rgba(8,8,10,0) 55%,rgba(8,8,10,.6) 100%);cursor:pointer;transition:opacity .3s;border-radius:0 0 8px 8px}
+.viewport.mobile .cover{inset:10px;border-radius:30px}
+.viewport .cover span{font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;padding:12px 16px;background:rgba(8,8,10,.82);border:1px solid var(--gold);color:var(--gold);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .25s,color .25s}
+.viewport .cover:hover span{background:var(--gold);color:var(--bg)}
+.viewport.active .cover{display:none}
+.viewport.active{box-shadow:0 0 0 1px var(--gold),0 70px 120px -50px #000}
+.device.noframes .xbtn{display:none}
+@media(max-width:560px){.xbtn span{display:none}.xbtn{padding:11px 12px}}
+.viewport.blocked .cover{cursor:default}
+.viewport.blocked .cover span{border-color:var(--line);color:var(--dim);max-width:86%;text-align:center;line-height:1.7;letter-spacing:.18em}
+.viewport.blocked .cover:hover span{background:rgba(8,8,10,.82);color:var(--dim)}
+.viewport .done{position:absolute;right:10px;top:36px;z-index:6;display:none;appearance:none;border:1px solid var(--gold);background:rgba(8,8,10,.85);color:var(--gold);font:inherit;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:9px 12px;cursor:pointer}
+.viewport.mobile .done{top:26px;right:20px}
+.viewport.active .done.touch{display:block}
+.project.exp .viewport .done{display:none!important}
+/* richer placeholder while a site loads (or where loading is not allowed) */
+.mock{position:absolute;inset:0;display:block;padding:0;background:var(--brand);color:#fff;overflow:hidden}
+.mock .mn{height:11%;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(0,0,0,.18)}
+.mock .mn b{font-family:var(--serif);font-weight:400;font-size:clamp(11px,1.3vw,17px)}
+.mock .mn i{display:block;width:26%;height:5px;background:rgba(255,255,255,.3);border-radius:3px}
+.mock .mh{padding:7% 5% 0}
+.mock .mh b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(20px,3vw,44px);line-height:1;max-width:12ch}
+.mock .mh i{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.3);margin-top:12px;width:52%}
+.mock .mh i+i{width:36%}
+.mock .mh u{display:inline-block;margin-top:16px;width:22%;height:20px;background:rgba(255,255,255,.9);border-radius:3px}
+.mock .mc{position:absolute;left:5%;right:5%;bottom:-8%;display:grid;grid-template-columns:repeat(3,1fr);gap:3%}
+.mock .mc i{display:block;aspect-ratio:4/3;background:rgba(255,255,255,.14);border-radius:4px}
+.viewport.mobile .mock .mc{grid-template-columns:1fr;bottom:auto;top:58%}
+.viewport.mobile .mock .mc i{aspect-ratio:5/2}
+.viewport.mobile .mock .mh b{font-size:22px}
+@media(max-width:760px){.viewport.mobile{width:80%}}
+/* expanded: the window takes over the screen, the page underneath is frozen */
+#veil{position:fixed;inset:0;z-index:79;background:rgba(4,4,6,.94);display:none}
+#veil.on{display:block;animation:veilIn .3s ease both}
+@keyframes veilIn{from{opacity:0}to{opacity:1}}
+body.exp .nav{opacity:0;pointer-events:none}
+.project.exp{perspective:none}
+.project.exp .device{transform:none!important;opacity:1!important;will-change:auto;transform-style:flat}
+.project.exp .copy{transform:none!important}
+.project.exp .viewport{position:fixed;z-index:86;left:50%;top:calc(50% + 22px);transform:translate(-50%,-50%)!important;margin:0;transition:none}
+.project.exp .viewport.desktop{width:min(95vw,1560px);height:min(calc(100svh - 96px),980px);aspect-ratio:auto}
+.project.exp .viewport.mobile{height:min(calc(100svh - 96px),860px);width:auto;min-width:0;aspect-ratio:390/800}
+.project.exp .ctl{position:fixed;z-index:87;top:12px;left:50%;transform:translateX(-50%);margin:0;width:min(95vw,1560px);background:rgba(8,8,10,.6)}
+</style>
+</head>
+<body>
+
+<div id="pre"><div class="in"><div class="logo">nodemor<i>.</i></div><div class="bar"><b id="preB"></b></div><div class="lab" id="preT">Preparing for launch</div></div></div>
+
+<nav class="nav">
+  <a class="brand" href="#top">nodemor<i>.</i></a>
+  <ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li></ul>
+  <a class="cta" href="#contact">Get started</a>
+</nav>
+
+<main id="top">
+  <div id="veil"></div>
+
+  <section class="journey" id="journey" aria-label="The Nodemor journey">
+    <div class="stick">
+      <div id="gl"></div>
+      <div class="vig"></div>
+      <div class="grain"></div>
+      <div class="scrim"></div>
+
+      <div class="scene on" data-i="0">
+        <h1><span class="ln"><span>Software,</span></span><span class="ln"><span>built to <i>sell.</i></span></span></h1>
+        <p>Not just beautiful. Built to convert. Nodemor designs and engineers AI systems, platforms and websites for ambitious businesses.</p>
+      </div>
+      <div class="scene" data-i="1">
+        <span class="lab">01 — Foundations</span>
+        <h2><span class="ln"><span>Built on proven</span></span><span class="ln"><span><i>foundations.</i></span></span></h2>
+        <p>The open web, Linux and Python sit under everything we ship. Standards that have carried the internet for thirty years.</p>
+      </div>
+      <div class="scene" data-i="2">
+        <span class="lab">02 — The stack</span>
+        <h2><span class="ln"><span>A modern stack,</span></span><span class="ln"><span><i>no shortcuts.</i></span></span></h2>
+        <p>Typed code, component interfaces and a real database. The same tools the largest products in the world are built with.</p>
+      </div>
+      <div class="scene" data-i="3">
+        <span class="lab">03 — Intelligence</span>
+        <h2><span class="ln"><span>AI that works</span></span><span class="ln"><span>while you <i>sleep.</i></span></span></h2>
+        <p>Assistants that answer customers on WhatsApp, take the booking and write the follow-up at three in the morning.</p>
+      </div>
+      <div class="scene" data-i="4">
+        <span class="lab">04 — Every screen</span>
+        <h2><span class="ln"><span>Mobile first,</span></span><span class="ln"><span><i>everywhere.</i></span></span></h2>
+        <p>One-tap payments, instant pages and interfaces designed for the phone in your customer's hand.</p>
+      </div>
+      <div class="scene" data-i="5">
+        <span class="lab">05 — Home</span>
+        <h2><span class="ln"><span>Engineered in</span></span><span class="ln"><span><i>Sri Lanka.</i></span></span></h2>
+        <p>Trusted by tour operators, car rentals, booking marketplaces and SaaS platforms. Open the live products below.</p>
+      </div>
+
+      <div class="pins" id="pins"></div>
+      <svg class="leader" aria-hidden="true"><line id="ldr" x1="0" y1="0" x2="0" y2="0"/><circle id="ldc" r="7" cx="-99" cy="-99"/></svg>
+      <aside class="pcard" id="pcard" aria-live="polite">
+        <div class="media"><img id="pcImg" alt=""><span class="stopn" id="pcN"></span></div><div class="term" id="pcTerm"></div>
+        <div class="body"><div class="where" id="pcWhere"></div><h3 id="pcTitle"></h3><p id="pcText"></p><div class="chips" id="pcChips"></div></div>
+        <div class="prog"><b id="pcProg"></b></div>
+      </aside>
+
+      <div class="rail" id="rail"></div>
+      <div class="count"><span id="cnt">01</span><small>/ 06</small></div>
+      <div class="hint lab"><span>Scroll to start the journey</span><i></i></div>
+    </div>
+  </section>
+
+  <section class="sec about" id="about">
+    <div class="wrap">
+      <span class="lab" style="display:block;margin-bottom:32px">About</span>
+      <p class="big" id="aboutText">Nodemor is a software studio that builds world-class platforms, AI systems and websites for ambitious businesses. From strategy to launch, we help you look premium and sell better.</p>
+      <div class="cols">
+        <div class="rv"><b>100%</b><small>Custom built, no templates</small></div>
+        <div class="rv"><b>&lt;2s</b><small>Mobile load time</small></div>
+        <div class="rv"><b>24h</b><small>Response time</small></div>
+        <div class="rv"><b>24/7</b><small>Monitoring and support</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <div class="wrap">
+      <div class="head"><h2 class="rv">What we <i>build</i></h2><p class="rv">Every engagement ends with something you can log into, measure and grow.</p></div>
+      <div class="rows">
+        <div class="rowi"><span class="n">01</span><h3>Web platforms</h3><div><p>Booking engines, marketplaces, admin dashboards and payments. Software your team logs into every day.</p><div class="tags"><span>Next.js</span><span>Node</span><span>PostgreSQL</span><span>Payments</span></div></div></div>
+        <div class="rowi"><span class="n">02</span><h3>AI systems</h3><div><p>Customer assistants on WhatsApp and web, booking and document automation, internal copilots built on your data.</p><div class="tags"><span>Claude</span><span>GPT</span><span>RAG</span><span>Automation</span></div></div></div>
+        <div class="rowi"><span class="n">03</span><h3>Websites</h3><div><p>Fast, mobile-first sites built around one action, for tour operators, rentals, hotels and local businesses.</p><div class="tags"><span>React</span><span>SEO</span><span>Multilingual</span><span>Hosting</span></div></div></div>
+        <div class="rowi"><span class="n">04</span><h3>Growth</h3><div><p>Search campaigns, Google Business, review engines and content that keeps enquiries coming.</p><div class="tags"><span>Google Ads</span><span>Local SEO</span><span>Analytics</span><span>Content</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="work">
+    <div class="wrap">
+      <div class="head"><h2 class="rv">Selected <i>work</i></h2><p class="rv">Every product opens right here. Click a window and scroll the real site inside it, on desktop or mobile, without leaving this page.</p></div>
+      <div class="projects">
+        <article class="project" data-url="https://denoahlankaholidays.com/" style="--brand:#1f4d3a">
+          <div class="copy"><span class="lab">Tour operator + booking</span><h3>Denoah Lanka Holidays</h3><p>Private driver-guide tours, airport transfers and hotel bookings across Sri Lanka. Tour packages, fleet with tariffs, destination guides, wishlist and one-tap WhatsApp enquiries, run from a simple admin.</p><div class="tags"><span>Next.js</span><span>Admin CMS</span><span>Wishlist</span><span>WhatsApp</span></div><span class="dom">denoahlankaholidays.com</span><p class="explore lab"><span>Explore it inside the window</span><i></i></p></div>
+          <div class="device"></div>
+        </article>
+        <article class="project" data-url="https://aimode.lk/" style="--brand:#0F2D3A">
+          <div class="copy"><span class="lab">SaaS website builder</span><h3>aimode.lk</h3><p>A website platform for Sri Lankan businesses. Pick a template, edit every word and image, publish in days. Orders, bookings and WhatsApp built into every template.</p><div class="tags"><span>Multi-tenant</span><span>Templates</span><span>Orders</span><span>Billing</span></div><span class="dom">aimode.lk</span><p class="explore lab"><span>Explore it inside the window</span><i></i></p></div>
+          <div class="device"></div>
+        </article>
+        <article class="project" data-url="https://rentacarkandy.com/" style="--brand:#1E4634">
+          <div class="copy"><span class="lab">Car rental</span><h3>JP Rent A Car Kandy</h3><p>Self-drive and chauffeur-driven car rental in Kandy. Fleet catalogue, hotel and station delivery, 24/7 WhatsApp support, so a traveller confirms a car from their phone in under a minute.</p><div class="tags"><span>Fleet</span><span>Mobile-first</span><span>WhatsApp</span><span>Local SEO</span></div><span class="dom">rentacarkandy.com</span><p class="explore lab"><span>Explore it inside the window</span><i></i></p></div>
+          <div class="device"></div>
+        </article>
+        <article class="project" data-url="https://directbooking.lk/" style="--brand:#003580">
+          <div class="copy"><span class="lab">Marketplace</span><h3>Direct Booking Platform</h3><p>Hotels, guesthouses, villas, apartments, Ayurvedic spas and vehicles across the island. Guests book direct at the lowest rate; owners keep the commission.</p><div class="tags"><span>Marketplace</span><span>Listings</span><span>Owner dashboard</span><span>Search</span></div><span class="dom">directbooking.lk</span><p class="explore lab"><span>Explore it inside the window</span><i></i></p></div>
+          <div class="device"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="wrap">
+      <div class="head"><h2 class="rv">The <i>process</i></h2><p class="rv">Four stages, each ending with something you can see on your phone.</p></div>
+      <div class="steps">
+        <div class="step rv"><h3>Discovery</h3><p>One working session to map what your customers actually do, what sells, and what gets in the way.</p></div>
+        <div class="step rv"><h3>Design</h3><p>Clickable prototype on your phone within days. Real copy, real photos, your brand.</p></div>
+        <div class="step rv"><h3>Build</h3><p>Weekly releases to a live staging link. Bookings, payments and admin tested with your team.</p></div>
+        <div class="step rv"><h3>Launch &amp; grow</h3><p>Domain, hosting, analytics and campaigns switched on together. Then we keep tuning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="bgimg" id="contactBg"></div>
+    <div class="wrap">
+      <span class="lab" style="display:block;margin-bottom:24px">Get in touch</span>
+      <h2 class="rv">Let's make it<br><i>unforgettable.</i></h2>
+      <div class="rowc">
+        <a class="btn gold" href="https://wa.me/94000000000" target="_blank" rel="noopener">Start a WhatsApp conversation</a>
+        <a class="btn" href="mailto:hello@nodemor.com">hello@nodemor.com</a>
+      </div>
+      <div class="meta">
+        <div><span class="lab">Studio</span><span>Sri Lanka</span></div>
+        <div><span class="lab">Working</span><span>Worldwide</span></div>
+        <div><span class="lab">Reply within</span><span>24 hours</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap lab"><span>© 2026 Nodemor</span><span>Earth, Moon and astronaut imagery: NASA</span><a href="#top">Back to top</a></div></footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+const IMG = {"earth_day": "img/earth_day.jpg", "earth_night": "img/earth_night.jpg", "earth_clouds": "img/earth_clouds.jpg", "earth_spec": "img/earth_spec.jpg", "moon": "img/moon.jpg", "flare": "img/flare.jpg", "astronaut": "img/astronaut.jpg", "sky_px": "img/sky_px.jpg", "sky_nx": "img/sky_nx.jpg", "sky_py": "img/sky_py.jpg", "sky_ny": "img/sky_ny.jpg", "sky_pz": "img/sky_pz.jpg", "sky_nz": "img/sky_nz.jpg", "st_01": "img/st_01.jpg", "st_02": "img/st_02.jpg", "st_03": "img/st_03.jpg", "st_04": "img/st_04.jpg", "st_05": "img/st_05.jpg", "st_06": "img/st_06.jpg", "st_07": "img/st_07.jpg", "st_08": "img/st_08.jpg", "st_09": "img/st_09.jpg", "st_10": "img/st_10.jpg"};
+const NAMES = ['Arrive', 'Foundations', 'The stack', 'Intelligence', 'Every screen', 'Home'];
+const SCENE_AT = [0, .62, 2.22, 3.02, 3.77, 4.6];          /* scroll progress at which each headline takes over */
+const JUMP_TO  = [0, 1.1, 2.3, 3.12, 3.9, 4.7];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = innerWidth < 760;
+gsap.registerPlugin(ScrollTrigger);
+
+let lenis = null;
+if (window.Lenis && !reduce) { lenis = new Lenis({ lerp: .075, smoothWheel: true }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+const goTo = (el, o) => { if (lenis) lenis.scrollTo(el, Object.assign({ duration: 1.8 }, o || {})); else (typeof el === 'number' ? scrollTo({ top: el, behavior: 'smooth' }) : el.scrollIntoView({ behavior: 'smooth' })); };
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length < 2) return; const el = document.querySelector(id); if (!el) return; e.preventDefault(); goTo(el); }));
+
+/* ======================= SPACE ======================= */
+const stick = document.querySelector('.journey .stick');
+const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+document.getElementById('gl').appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(isMobile ? 62 : 46, 1, .05, 2000);
+function size(){ const w = stick.clientWidth, h = stick.clientHeight; renderer.setSize(w, h); camera.aspect = w / h;
+  if (w >= 760) camera.setViewOffset(w, h, -w * .17, -h * .02, w, h); else camera.setViewOffset(w, h, 0, h * .17, w, h);
+  camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+const preB = document.getElementById('preB'), pre = document.getElementById('pre');
+const manager = new THREE.LoadingManager();
+manager.onProgress = (u, l, t) => { preB.style.transform = `scaleX(${l / t})`; };
+const TL = new THREE.TextureLoader(manager);
+const tex = n => { const t = TL.load(IMG[n]); t.anisotropy = 8; return t; };
+
+/* sky: real Milky Way panorama */
+const sky = new THREE.CubeTextureLoader(manager).load(['sky_px','sky_nx','sky_py','sky_ny','sky_pz','sky_nz'].map(k => IMG[k]));
+sky.encoding = THREE.sRGBEncoding; scene.background = sky;
+
+/* sun */
+const SUN = new THREE.Vector3(1, .28, .55).normalize();
+const sunLight = new THREE.DirectionalLight(0xfff4e6, 2.2); sunLight.position.copy(SUN).multiplyScalar(100); scene.add(sunLight);
+scene.add(new THREE.AmbientLight(0x223355, .12));
+const flareTex = tex('flare');
+const sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: flareTex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, color: 0xfff1d6 }));
+sunSprite.position.copy(SUN).multiplyScalar(900); sunSprite.scale.setScalar(520); scene.add(sunSprite);
+
+/* Earth: NASA Blue Marble day + night lights + clouds, blended by the sun in a custom shader */
+const R = 10;
+const dayT = tex('earth_day'), nightT = tex('earth_night'), cloudT = tex('earth_clouds'), specT = tex('earth_spec');
+[dayT, nightT].forEach(t => t.encoding = THREE.sRGBEncoding); cloudT.wrapS = THREE.RepeatWrapping;
+const earthMat = new THREE.ShaderMaterial({
+  uniforms: { uDay: { value: dayT }, uNight: { value: nightT }, uClouds: { value: cloudT }, uSpec: { value: specT }, uSun: { value: SUN }, uTime: { value: 0 } },
+  vertexShader: `varying vec2 vUv; varying vec3 vN, vP; void main(){ vUv = uv; vN = normalize(mat3(modelMatrix) * normal); vec4 wp = modelMatrix * vec4(position, 1.); vP = wp.xyz; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+  fragmentShader: `
+    precision highp float;
+    uniform sampler2D uDay, uNight, uClouds, uSpec; uniform vec3 uSun; uniform float uTime;
+    varying vec2 vUv; varying vec3 vN, vP;
+    vec3 toLinear(vec3 c){ return pow(c, vec3(2.2)); }
+    void main(){
+      vec3 N = normalize(vN), V = normalize(cameraPosition - vP);
+      float ndl = dot(N, uSun);
+      float dayAmt = smoothstep(-.12, .35, ndl);
+      vec3 day = toLinear(texture2D(uDay, vUv).rgb);
+      vec3 night = toLinear(texture2D(uNight, vUv).rgb);
+      float cl = texture2D(uClouds, vec2(vUv.x + uTime * .0016, vUv.y)).r;
+      float spec = texture2D(uSpec, vUv).r;
+      /* lit surface */
+      vec3 col = day * (max(ndl, 0.) * 1.25 + .035) ;
+      /* ocean glint */
+      vec3 H = normalize(uSun + V);
+      col += vec3(1., .95, .85) * pow(max(dot(N, H), 0.), 70.) * spec * .9 * dayAmt;
+      /* clouds, lit by the sun, with a soft shadow of themselves */
+      col = mix(col, vec3(1.) * (max(ndl, 0.) * 1.15 + .03), cl * .88);
+      /* city lights on the dark side, dimmed under cloud */
+      col += night * vec3(1., .82, .55) * 2.6 * (1. - dayAmt) * (1. - cl * .7);
+      /* sunset band along the terminator */
+      float term = 1. - smoothstep(0., .1, abs(ndl));
+      col += vec3(1., .5, .25) * term * .008 * (1. - cl * .5);
+      /* atmosphere: blue scattering toward the limb on the lit side */
+      float fres = pow(1. - max(dot(N, V), 0.), 2.6);
+      col += vec3(.22, .5, 1.) * fres * (dayAmt * .95 + .04);
+      gl_FragColor = vec4(col, 1.);
+      #include <tonemapping_fragment>
+      #include <encodings_fragment>
+    }`
+});
+const earth = new THREE.Mesh(new THREE.SphereGeometry(R, isMobile ? 64 : 128, isMobile ? 48 : 96), earthMat);
+earth.rotation.y = 4.3; scene.add(earth);
+/* outer glow shell */
+const atmo = new THREE.Mesh(new THREE.SphereGeometry(R * 1.07, 96, 64), new THREE.ShaderMaterial({
+  side: THREE.BackSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  uniforms: { uSun: { value: SUN } },
+  vertexShader: `varying vec3 vN, vP; void main(){ vN = normalize(mat3(modelMatrix) * normal); vec4 wp = modelMatrix * vec4(position, 1.); vP = wp.xyz; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+  fragmentShader: `uniform vec3 uSun; varying vec3 vN, vP;
+    void main(){
+      vec3 V = normalize(cameraPosition - vP);
+      float d = -dot(normalize(vN), V);                 /* 0 at the outer edge, ~.36 at the planet's limb */
+      float glow = pow(smoothstep(0., .36, d), 2.4);
+      float lit = smoothstep(-.4, .45, dot(normalize(vP), uSun));
+      vec3 c = mix(vec3(1., .45, .2), vec3(.28, .58, 1.), smoothstep(.0, .5, lit));   /* warm at the terminator, blue in daylight */
+      gl_FragColor = vec4(c * glow * (lit * 1.25 + .03), 1.);
+    }`
+}));
+scene.add(atmo);
+
+/* Moon */
+const moon = new THREE.Mesh(new THREE.SphereGeometry(2.3, 64, 48), new THREE.MeshStandardMaterial({ map: (() => { const t = tex('moon'); t.encoding = THREE.sRGBEncoding; return t; })(), roughness: 1, metalness: 0 }));
+moon.position.set(.7, 14, -19.5); moon.rotation.y = 1.2; scene.add(moon);
+
+/* ---------- the spacecraft window ---------- */
+const ship = new THREE.Group(); scene.add(ship);
+const WIN = new THREE.Vector3(0, 6, 34), WR = 1.7;
+ship.position.copy(WIN);
+/* wall with a round opening, panel seams drawn procedurally */
+const wallTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 1024; const g = c.getContext('2d');
+  g.fillStyle = '#16181c'; g.fillRect(0, 0, 1024, 1024);
+  for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(255,255,255,${Math.random() * .025})`; g.fillRect(Math.random() * 1024, Math.random() * 1024, 2, 1); }
+  g.strokeStyle = 'rgba(0,0,0,.65)'; g.lineWidth = 5; for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i * 256, 0); g.lineTo(i * 256, 1024); g.stroke(); g.beginPath(); g.moveTo(0, i * 256); g.lineTo(1024, i * 256); g.stroke(); }
+  g.strokeStyle = 'rgba(255,255,255,.05)'; g.lineWidth = 2; for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i * 256 + 4, 0); g.lineTo(i * 256 + 4, 1024); g.stroke(); g.beginPath(); g.moveTo(0, i * 256 + 4); g.lineTo(1024, i * 256 + 4); g.stroke(); }
+  g.fillStyle = 'rgba(190,195,205,.5)'; for (let x = 0; x < 4; x++) for (let y = 0; y < 4; y++) [[22, 22], [234, 22], [22, 234], [234, 234]].forEach(([a, b]) => { g.beginPath(); g.arc(x * 256 + a, y * 256 + b, 4, 0, 6.28); g.fill(); });
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(.09, .09); t.encoding = THREE.sRGBEncoding; return t; })();
+const wallShape = new THREE.Shape(); wallShape.moveTo(-30, -30); wallShape.lineTo(30, -30); wallShape.lineTo(30, 30); wallShape.lineTo(-30, 30); wallShape.closePath();
+const hole = new THREE.Path(); hole.absarc(0, 0, WR, 0, Math.PI * 2, true); wallShape.holes.push(hole);
+const wall = new THREE.Mesh(new THREE.ShapeGeometry(wallShape, 96), new THREE.MeshStandardMaterial({ map: wallTex, color: 0xffffff, roughness: .78, metalness: .35 }));
+ship.add(wall);
+const metal = new THREE.MeshStandardMaterial({ color: 0xc4c8d0, roughness: .32, metalness: .9 });
+const rubber = new THREE.MeshStandardMaterial({ color: 0x08090b, roughness: .9, metalness: 0 });
+const rim1 = new THREE.Mesh(new THREE.TorusGeometry(WR + .16, .2, 32, 160), metal); rim1.position.z = .05; ship.add(rim1);
+const flange = new THREE.Mesh(new THREE.RingGeometry(WR + .3, WR + .72, 128), new THREE.MeshStandardMaterial({ color: 0x9aa0aa, roughness: .45, metalness: .85 })); flange.position.z = .02; ship.add(flange);
+const rim2 = new THREE.Mesh(new THREE.TorusGeometry(WR - .02, .07, 16, 160), rubber); rim2.position.z = .02; ship.add(rim2);
+/* depth of the window tunnel */
+const tunnel = new THREE.Mesh(new THREE.CylinderGeometry(WR, WR, .7, 96, 1, true), new THREE.MeshStandardMaterial({ color: 0x2a2d33, roughness: .6, metalness: .6, side: THREE.BackSide })); tunnel.rotation.x = Math.PI / 2; tunnel.position.z = -.35; ship.add(tunnel);
+const rim3 = new THREE.Mesh(new THREE.TorusGeometry(WR, .06, 16, 160), rubber); rim3.position.z = -.7; ship.add(rim3);
+for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; const b = new THREE.Mesh(new THREE.CylinderGeometry(.065, .065, .07, 6), metal); b.rotation.x = Math.PI / 2; b.position.set(Math.cos(a) * (WR + .52), Math.sin(a) * (WR + .52), .06); ship.add(b); }
+/* stencilled marking above the window */
+const stencil = (() => { const c = document.createElement('canvas'); c.width = 1024; c.height = 128; const g = c.getContext('2d'); g.fillStyle = 'rgba(214,218,226,.55)'; g.font = '600 54px Inter, Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('N O D E M O R   ·   V I E W P O R T   0 1', 512, 64); const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return t; })();
+const mark = new THREE.Mesh(new THREE.PlaneGeometry(4.4, .55), new THREE.MeshBasicMaterial({ map: stencil, transparent: true, depthWrite: false })); mark.position.set(0, WR + 1.35, .012); ship.add(mark);
+/* cabin lights */
+const cabin1 = new THREE.PointLight(0xffd3a1, 1.5, 14, 2); cabin1.position.set(3.2, 2.6, 3.4); ship.add(cabin1);
+const cabin2 = new THREE.PointLight(0x7fa8ff, .9, 14, 2); cabin2.position.set(-3.6, -1.6, 2.6); ship.add(cabin2);
+/* earthshine spilling through the opening */
+const shine = new THREE.PointLight(0x9cc4ff, 1.1, 8, 2); shine.position.set(0, 0, -.2); ship.add(shine);
+
+
+/* ======================= STOPS ON THE GLOBE ======================= */
+/* each stop: where a piece of our stack was created. at = scroll progress when the route arrives */
+const STOPS = [
+  { at: 1.10, lat: 46.23, lon: 6.05,    name: 'The Web',       where: 'CERN, Geneva · 1989',            img: 'st_01', pos: '50% 50%', code: ['<a href="', 'https://nodemor.com', '">'],
+    text: 'HTML, URLs and HTTP were invented here. Every site and platform we ship still stands on those three ideas.', chips: ['HTML', 'HTTP', 'Open standards'] },
+  { at: 1.45, lat: 60.17, lon: 24.94,   name: 'Linux',         where: 'Helsinki · 1991',                img: 'st_02', pos: '50% 50%', code: ['$ ', 'uname -a', '  # every server we deploy to'],
+    text: 'The operating system under almost every server on the internet, including the ones that run your product.', chips: ['Servers', 'Containers', 'Uptime'] },
+  { at: 1.80, lat: 52.37, lon: 4.90,    name: 'Python',        where: 'Amsterdam · 1991',               img: 'st_03', pos: '50% 50%', code: ['def ', 'forecast', '(bookings): ...'],
+    text: 'The language of data and AI. We use it for automation, reporting and the pipelines behind our assistants.', chips: ['Data', 'Automation', 'AI pipelines'] },
+  { at: 2.30, lat: 43.36, lon: -80.31,  name: 'Tailwind CSS',  where: 'Ontario, Canada · 2017',         img: 'st_04', pos: '50% 50%', code: ['class="', 'flex gap-6 md:grid', '"'],
+    text: 'How we style interfaces: fast to build, consistent on every screen size, and tiny when it reaches the browser.', chips: ['Design systems', 'Responsive', 'Fast CSS'] },
+  { at: 2.70, lat: 47.67, lon: -122.12, name: 'TypeScript',    where: 'Redmond, USA · 2012',            img: 'st_05', pos: '50% 50%', code: ['type ', 'Booking', ' = { id: string; total: number }'],
+    text: 'Typed JavaScript. Whole classes of bugs are caught before the code ever runs, which is why our releases stay boring.', chips: ['Type safety', 'Node.js', 'Fewer bugs'] },
+  { at: 3.10, lat: 37.60, lon: -122.20, name: 'React, Next.js & AI', where: 'San Francisco Bay · 1995 →', img: 'st_06', pos: '50% 50%', code: ['await ', 'claude.messages.create', '({ ... })'],
+    text: 'JavaScript, PostgreSQL, React and Next.js were all born around this bay, and so were the AI models we build assistants on.', chips: ['React', 'Next.js', 'PostgreSQL', 'Claude · GPT'] },
+  { at: 3.85, lat: 24.80, lon: 120.97,  name: 'Silicon',       where: 'Hsinchu, Taiwan',                img: 'st_07', pos: '50% 50%', code: ['model.', 'to', '("cuda")  # runs on chips made here'],
+    text: 'Most of the advanced chips that train and run AI models are manufactured on this island. Every answer starts here.', chips: ['GPUs', 'AI inference', 'Edge devices'] },
+  { at: 4.10, lat: 22.54, lon: 114.06,  name: 'Mobile payments', where: 'Shenzhen, China',              img: 'st_08', pos: '50% 50%', code: ['pay.', 'oneTap', '(order)  // done in 2s'],
+    text: 'The place that proved a phone can be the whole shop. We bring the same one-tap thinking to every checkout we build.', chips: ['One-tap checkout', 'QR pay', 'Super-app UX'] },
+  { at: 4.35, lat: 12.97, lon: 77.59,   name: 'Scale',         where: 'Bengaluru, India',               img: 'st_09', pos: '50% 50%', code: ['upi://', 'pay', '?pa=merchant@bank'],
+    text: 'Instant bank-to-bank payments for more than a billion people. A lesson in building simple systems that scale.', chips: ['Instant payments', 'APIs', 'Reliability'] },
+  { at: 4.65, lat: 6.93, lon: 79.86,    name: 'Nodemor',       where: 'Colombo, Sri Lanka · Home',      img: 'st_10', pos: '50% 50%', code: ['$ ', 'vercel --prod', '   ✓ live'],
+    text: 'Where all of it comes together. Design, engineering, AI and growth in one studio, shipping products for the world.', chips: ['Design', 'Engineering', 'AI', 'Growth'] }
+];
+const ll = (lat, lon, r) => { const ph = (90 - lat) * Math.PI / 180, th = (lon + 180) * Math.PI / 180; return new THREE.Vector3(-r * Math.sin(ph) * Math.cos(th), r * Math.cos(ph), r * Math.sin(ph) * Math.sin(th)); };
+const GOLD = 0xd9b877;
+const pinsEl = document.getElementById('pins');
+const stopGroup = new THREE.Group(); earth.add(stopGroup);
+STOPS.forEach((st, i) => {
+  st.v = ll(st.lat, st.lon, R); st.n = st.v.clone().normalize();
+  const g = new THREE.Group(); g.position.copy(st.v); g.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), st.n); stopGroup.add(g);
+  const dot = new THREE.Mesh(new THREE.SphereGeometry(.075, 16, 12), new THREE.MeshBasicMaterial({ color: 0xfff3d6, toneMapped: false })); g.add(dot);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(.12, .15, 48), new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: .9, side: THREE.DoubleSide, depthWrite: false, toneMapped: false })); ring.position.z = .02; g.add(ring);
+  const pulse = new THREE.Mesh(new THREE.RingGeometry(.15, .17, 48), new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, toneMapped: false })); pulse.position.z = .02; g.add(pulse);
+  const beam = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .7, 6), new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: .8, toneMapped: false })); beam.rotation.x = Math.PI / 2; beam.position.z = .35; g.add(beam);
+  const head = new THREE.Mesh(new THREE.OctahedronGeometry(.085, 0), new THREE.MeshBasicMaterial({ color: GOLD, toneMapped: false })); head.position.z = .78; g.add(head);
+  g.scale.setScalar(.001); st.g = g; st.pulse = pulse; st.head = head; st.shown = 0;
+  const tag = document.createElement('div'); tag.className = 'pin-tag'; tag.textContent = st.name; pinsEl.appendChild(tag); st.tag = tag;
+});
+
+/* route: great-circle arcs lifted off the surface, dashed, drawn as the marker travels */
+const SEGN = 96, DWELL = .1;
+function arcPoint(a, b, t, out){
+  const th = a.angleTo(b), s = Math.sin(th);
+  const w1 = Math.sin((1 - t) * th) / s, w2 = Math.sin(t * th) / s;
+  out.set(a.x * w1 + b.x * w2, a.y * w1 + b.y * w2, a.z * w1 + b.z * w2).normalize();
+  const lift = .035 + .26 * (th / Math.PI);
+  return out.multiplyScalar(R * (1.012 + lift * Math.sin(Math.PI * t)));
+}
+const routes = [];
+for (let k = 0; k < STOPS.length - 1; k++) {
+  const a = STOPS[k].n, b = STOPS[k + 1].n, pts = [];
+  for (let j = 0; j <= SEGN; j++) pts.push(arcPoint(a, b, j / SEGN, new THREE.Vector3()));
+  const curve = new THREE.CatmullRomCurve3(pts), len = curve.getLength();
+  const mat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, toneMapped: false,
+    uniforms: { uHead: { value: 0 }, uDim: { value: 1 }, uDashes: { value: Math.max(6, Math.round(len / .34)) } },
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+    fragmentShader: `varying vec2 vUv; uniform float uHead, uDim, uDashes;
+      void main(){
+        if (vUv.x > uHead) discard;                                   /* only the part already travelled */
+        float dash = step(fract(vUv.x * uDashes), .56);
+        float trail = smoothstep(uHead - .14, uHead, vUv.x) * step(uHead, .999);   /* solid bright tail behind the marker */
+        float a = max(dash, trail); if (a < .01) discard;
+        vec3 c = mix(vec3(.85, .72, .47), vec3(1., .97, .86), trail);
+        gl_FragColor = vec4(c * (.8 + trail * 1.1), a * uDim);
+      }`
+  });
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 160, .034, 6, false), mat); stopGroup.add(tube);
+  routes.push({ mat, a, b, f: 0 });
+}
+/* the traveller: an arrowhead with a glow, riding the route */
+const traveller = new THREE.Group(); stopGroup.add(traveller);
+const arrowGeo = new THREE.ConeGeometry(.15, .46, 14); arrowGeo.rotateX(Math.PI / 2);
+const arrow = new THREE.Mesh(arrowGeo, new THREE.MeshBasicMaterial({ color: 0xfff3d6, toneMapped: false })); traveller.add(arrow);
+const softTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'); const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,250,235,1)'); gr.addColorStop(.18, 'rgba(255,225,160,.75)'); gr.addColorStop(.5, 'rgba(217,184,119,.18)'); gr.addColorStop(1, 'rgba(217,184,119,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c); })();
+const tGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: softTex, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, toneMapped: false })); tGlow.scale.setScalar(1.3); traveller.add(tGlow);
+traveller.visible = false;
+
+/* card */
+const pc = { el: document.getElementById('pcard'), img: document.getElementById('pcImg'), n: document.getElementById('pcN'), term: document.getElementById('pcTerm'), where: document.getElementById('pcWhere'), title: document.getElementById('pcTitle'), text: document.getElementById('pcText'), chips: document.getElementById('pcChips'), prog: document.getElementById('pcProg') };
+const ldr = document.getElementById('ldr'), ldc = document.getElementById('ldc');
+let activeStop = -1, typeTimer = null, cardVisible = false;
+function setCard(i){
+  if (i === activeStop) return; activeStop = i;
+  STOPS.forEach((s2, k) => s2.tag.classList.toggle('active', k === i));
+  if (i < 0) { cardVisible = false; gsap.to(pc.el, { opacity: 0, duration: .35, overwrite: true }); return; }
+  const st = STOPS[i]; cardVisible = true;
+  gsap.to(pc.el, { opacity: 0, duration: .18, overwrite: true, onComplete(){
+    pc.img.src = IMG[st.img]; pc.img.style.objectPosition = st.pos; pc.img.alt = st.name;
+    pc.n.textContent = `Stop ${String(i + 1).padStart(2, '0')} / ${STOPS.length}`;
+    pc.where.textContent = st.where; pc.title.textContent = st.name; pc.text.textContent = st.text;
+    pc.chips.innerHTML = st.chips.map(c => `<span>${c}</span>`).join('');
+    gsap.to(pc.el, { opacity: 1, duration: .5, ease: 'power2.out' });
+    gsap.fromTo(pc.img, { scale: 1.14 }, { scale: 1, duration: 5, ease: 'power2.out' });
+    gsap.fromTo([pc.where, pc.title, pc.text], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .07, ease: 'power3.out' });
+    gsap.fromTo(pc.chips.children, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .05, delay: .25, ease: 'power3.out' });
+    /* a line of real code types itself across the photograph */
+    clearInterval(typeTimer); const [a, b, c] = st.code, full = a + b + c; let nCh = 0;
+    typeTimer = setInterval(() => { nCh++; const cut = full.slice(0, nCh); const p1 = cut.slice(0, a.length), p2 = cut.slice(a.length, a.length + b.length), p3 = cut.slice(a.length + b.length);
+      pc.term.innerHTML = esc(p1) + '<b>' + esc(p2) + '</b>' + esc(p3) + '<i></i>'; if (nCh >= full.length) clearInterval(typeTimer); }, 34);
+  } });
+}
+const esc = x => x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const wv = new THREE.Vector3(), wn = new THREE.Vector3(), tv = new THREE.Vector3(), tv2 = new THREE.Vector3(), q = new THREE.Quaternion();
+const card = { x: 0, y: 0, init: false };
+let rotY = 4.3;
+function project(v){ const w = stick.clientWidth, h = stick.clientHeight; tv2.copy(v).project(camera); return [(tv2.x * .5 + .5) * w, (-tv2.y * .5 + .5) * h, tv2.z]; }
+
+function updateStops(p, t, camPath){
+  /* where is the traveller on the route? */
+  let k = 0; while (k < STOPS.length - 1 && p >= STOPS[k + 1].at) k++;
+  let local;
+  if (p < STOPS[0].at || k === STOPS.length - 1) { local = STOPS[k].v; }
+  else { const span = STOPS[k + 1].at - STOPS[k].at; let f = Math.min(1, Math.max(0, (p - STOPS[k].at - DWELL) / (span - DWELL))); f = f * f * (3 - 2 * f);
+    local = arcPoint(routes[k].a, routes[k].b, f, tv); routes[k].f = f; }
+  for (let i = k + 1; i < routes.length; i++) routes[i].f = 0;
+  /* draw the route up to the traveller */
+  routes.forEach((r, i) => { const f = i < k ? 1 : (i === k && p >= STOPS[0].at ? (r.f || 0) : 0); r.mat.uniforms.uHead.value = f; r.mat.uniforms.uDim.value = i < k - 1 ? .45 : 1; });
+  /* turn the planet so the traveller faces the camera */
+  const want = Math.atan2(camPath.x, camPath.z) - Math.atan2(local.x, local.z) + (isMobile ? 0 : -.1);
+  let d = (want - rotY) % (Math.PI * 2); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2;
+  rotY += d * (1 - Math.exp(-DT * 4.5)); earth.rotation.y = rotY; earth.updateMatrixWorld();
+  /* traveller */
+  const moving = p >= STOPS[0].at && k < STOPS.length - 1 && (routes[k].f || 0) > 0 && (routes[k].f || 0) < 1;
+  traveller.visible = moving;
+  if (moving) { traveller.position.copy(local); arcPoint(routes[k].a, routes[k].b, Math.min(1, routes[k].f + .02), tv2); traveller.up.copy(local).normalize(); traveller.lookAt(earth.localToWorld(tv2.clone())); tGlow.scale.setScalar(1.25 + Math.sin(t * 6) * .18); }
+  /* pins */
+  const w = stick.clientWidth, h = stick.clientHeight;
+  let act = -1;
+  STOPS.forEach((st, i) => {
+    const reached = p >= st.at - .04, target = p >= st.at - .16 ? 1 : 0;
+    st.shown += (target - st.shown) * (1 - Math.exp(-DT * 7)); st.g.scale.setScalar(Math.max(.001, st.shown * (i === activeStop ? 1.25 : 1)));
+    const ph = (t * .7 + i * .37) % 1; st.pulse.scale.setScalar(1 + ph * 3.2); st.pulse.material.opacity = reached ? (1 - ph) * .8 : 0;
+    st.head.rotation.z = t * 1.5;
+    if (reached) act = i;
+    wv.copy(st.v); earth.localToWorld(wv); wn.copy(wv).normalize();
+    const facing = wn.dot(tv.copy(camera.position).sub(wv).normalize());
+    const [x, y, z] = project(wv);
+    const vis = reached && facing > .1 && z < 1 && x > 0 && x < w && y > 0 && y < h;
+    st.sx = x; st.sy = y; st.vis = vis;
+    st.tag.classList.toggle('on', vis && p < 4.95);
+    if (vis) st.tag.style.transform = `translate(${x + 14}px,${y - 6}px)`;
+  });
+  if (p > 4.93) act = -1;
+  setCard(act);
+  /* card + leader follow the active pin */
+  if (act >= 0 && cardVisible) {
+    const st = STOPS[act]; const [hx, hy] = project(wv.copy(st.v).addScaledVector(st.n, .8).applyMatrix4(earth.matrixWorld));
+    if (!isMobile) {
+      const cw = pc.el.offsetWidth, chh = pc.el.offsetHeight;
+      let tx = hx + 70, ty = hy - chh * .42;
+      if (tx + cw > w - 96) tx = hx - cw - 70;                         /* flip to the left of the pin near the edge */
+      tx = Math.max(w * .47, Math.min(w - cw - 72, tx)); ty = Math.max(92, Math.min(h - chh - 70, ty));
+      if (!card.init) { card.x = tx; card.y = ty; card.init = true; }
+      const ck = 1 - Math.exp(-DT * 9); card.x += (tx - card.x) * ck; card.y += (ty - card.y) * ck;
+      pc.el.style.transform = `translate(${card.x}px,${card.y}px)`;
+      const ex = hx < card.x ? card.x : card.x + cw, ey = Math.max(card.y + 24, Math.min(card.y + chh - 24, hy));
+      ldr.setAttribute('x1', hx); ldr.setAttribute('y1', hy); ldr.setAttribute('x2', ex); ldr.setAttribute('y2', ey);
+      ldc.setAttribute('cx', hx); ldc.setAttribute('cy', hy);
+      ldr.style.opacity = ldc.style.opacity = st.vis ? 1 : 0;
+    }
+    const next = act < STOPS.length - 1 ? STOPS[act + 1].at : 4.93;
+    pc.prog.style.transform = `scaleX(${Math.min(1, Math.max(0, (p - st.at) / (next - st.at)))})`;
+  } else { ldr.style.opacity = ldc.style.opacity = 0; card.init = false; }
+}
+
+/* ---------- flight path ---------- */
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const posCurve = new THREE.CatmullRomCurve3([ V(0, 6, 41.5), V(0, 6, 33.2), V(11, 18, 23), V(-25, 15, -11), V(31, 15, -35), V(52, 22, -62) ], false, 'catmullrom', .35);
+const tgtCurve = new THREE.CatmullRomCurve3([ V(0, 4.2, 0), V(0, 3, 0), V(0, 4, 0), V(0, 4, 0), V(9, 5, -9), V(5, 3, -5) ], false, 'catmullrom', .35);
+const LEGS = 5, S = { p: 0 };
+const KT = [0, 1, 2, 3.1, 4.62, 5];                       /* scroll progress at which the camera reaches each key position */
+function camU(p){ let i = 0; while (i < KT.length - 2 && p > KT[i + 1]) i++; const f = Math.min(1, Math.max(0, (p - KT[i]) / (KT[i + 1] - KT[i]))); return (i + f) / (KT.length - 1); }
+if (!reduce) gsap.to(S, { p: LEGS, ease: 'none', scrollTrigger: { trigger: '#journey', start: 'top top', end: 'bottom bottom', scrub: 1.1 } });
+
+const scenes = [...document.querySelectorAll('.scene')], cnt = document.getElementById('cnt'), rail = document.getElementById('rail'), hint = document.querySelector('.journey .hint');
+NAMES.forEach((n, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = n; b.addEventListener('click', () => { const j = document.getElementById('journey'); goTo(j.offsetTop + (j.offsetHeight - innerHeight) * (JUMP_TO[i] / LEGS) + 2); }); rail.appendChild(b); });
+let curScene = -1;
+function showScene(i){
+  if (i === curScene) return; const prev = scenes[curScene]; curScene = i;
+  scenes.forEach((s, k) => s.classList.toggle('on', k === i));
+  [...rail.children].forEach((b, k) => b.setAttribute('aria-current', k === i));
+  cnt.textContent = String(i + 1).padStart(2, '0');
+  if (prev) gsap.to(prev, { opacity: 0, y: -24, duration: .45, ease: 'power2.in', overwrite: true });
+  const st = scenes[i];
+  gsap.fromTo(st, { opacity: 0, y: 0 }, { opacity: 1, duration: .6, delay: .3, overwrite: true });
+  gsap.fromTo(st.querySelectorAll('.ln>span'), { yPercent: 115 }, { yPercent: 0, duration: 1.15, stagger: .09, ease: 'expo.out', delay: .3 });
+  gsap.fromTo(st.querySelectorAll('.lab,p,.tags'), { opacity: 0, y: 18 }, { opacity: (k, el) => el.classList.contains('lab') ? .75 : (el.tagName === 'P' ? .85 : 1), y: 0, duration: .9, stagger: .08, ease: 'power3.out', delay: .65 });
+}
+
+const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+addEventListener('pointermove', e => { mouse.tx = (e.clientX / innerWidth - .5) * 2; mouse.ty = (e.clientY / innerHeight - .5) * 2; }, { passive: true });
+let inView = true; new IntersectionObserver(es => { inView = es[0].isIntersecting; }).observe(document.getElementById('journey'));
+
+const intro = { z: reduce ? 0 : 3.5 }; let started = false, t0 = performance.now();
+const tmpP = new THREE.Vector3(), tmpT = new THREE.Vector3(), side = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0); let lastNow = performance.now(), DT = .016;
+function frame(now){
+  requestAnimationFrame(frame);
+  if (!started || !inView) return;
+  DT = Math.min(.25, (now - lastNow) / 1000); lastNow = now;
+  const t = (now - t0) / 1000, p = Math.min(LEGS, Math.max(0, S.p)), u = camU(p);
+  mouse.x += (mouse.tx - mouse.x) * .05; mouse.y += (mouse.ty - mouse.y) * .05;
+  posCurve.getPoint(u, tmpP); tgtCurve.getPoint(u, tmpT);
+  /* head movement: look around from where you stand; stronger inside the cabin so the window parallaxes against the Earth */
+  const sway = p < 1 ? .55 : 1.2;
+  side.subVectors(tmpT, tmpP).cross(up).normalize();
+  camera.position.copy(tmpP).addScaledVector(side, mouse.x * sway).addScaledVector(up, -mouse.y * sway * .6);
+  camera.position.z += intro.z * (1 - Math.min(1, p));
+  camera.lookAt(tmpT);
+  earthMat.uniforms.uTime.value = t; moon.rotation.y = 1.2 + t * .01;
+  updateStops(p, t, tmpP);
+  ship.visible = p < 1.6;
+  { let sc = 0; for (let k = 0; k < SCENE_AT.length; k++) if (p >= SCENE_AT[k]) sc = k; showScene(sc); }
+  hint.style.opacity = Math.max(0, 1 - p * 5);
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(frame);
+function ready(){ if (started) return; started = true; setTimeout(() => { pre.classList.add('done'); gsap.to(intro, { z: 0, duration: 3.4, ease: 'expo.out' }); showScene(0); }, 500); }
+manager.onLoad = ready; manager.onError = () => {}; setTimeout(ready, 9000);
+
+/* ======================= rest of the page ======================= */
+const at = document.getElementById('aboutText');
+at.innerHTML = at.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' ');
+const aw = at.querySelectorAll('.w');
+if (!reduce) ScrollTrigger.create({ trigger: at, start: 'top 82%', end: 'bottom 45%', scrub: true, onUpdate: s => { const n = Math.floor(s.progress * aw.length); aw.forEach((w, i) => w.classList.toggle('on', i < n)); } });
+
+const cbg = document.getElementById('contactBg'); cbg.style.backgroundImage = `url("${IMG.astronaut}")`;
+if (!reduce) gsap.fromTo(cbg, { yPercent: -8, scale: 1.15 }, { yPercent: 8, scale: 1, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+if (!reduce) {
+  gsap.utils.toArray('.rv').forEach(el => gsap.to(el, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
+  gsap.utils.toArray('.rowi').forEach(r => gsap.from(r, { opacity: 0, y: 40, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: r, start: 'top 92%' } }));
+}
+
+const hostOf = u => new URL(u).hostname.replace(/^www\./, ''), enc = u => encodeURIComponent(u);
+const shots = {
+  desktop: u => [`screenshots/${hostOf(u)}-desktop.png`, `https://image.thum.io/get/width/1280/crop/1600/noanimate/${u}`, `https://api.microlink.io/?url=${enc(u)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=1600`],
+  mobile:  u => [`screenshots/${hostOf(u)}-mobile.png`,  `https://image.thum.io/get/width/390/crop/1600/viewportWidth/390/noanimate/${u}`, `https://api.microlink.io/?url=${enc(u)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=390&viewport.height=1600&viewport.isMobile=true`]
+};
+const BASE = { desktop: 1280, mobile: 390 };
+const veil = document.getElementById('veil');
+const touch = matchMedia('(hover:none)').matches;
+const devices = [];
+let framesBlocked = false, expanded = null;
+
+/* some hosts (for example a sandboxed preview) refuse to load other sites in frames; say so instead of showing a blank window */
+document.addEventListener('securitypolicyviolation', e => {
+  const dir = (e.effectiveDirective || e.violatedDirective || '');
+  if (!/frame-src|child-src|default-src/.test(dir)) return;
+  if (!devices.some(d => e.blockedURI && e.blockedURI.indexOf(d.host) > -1)) return;
+  framesBlocked = true; devices.forEach(d => d.block());
+});
+
+document.querySelectorAll('.project').forEach((p, idx) => {
+  const url = p.dataset.url, name = p.querySelector('h3').textContent, host = hostOf(url), dev = p.querySelector('.device');
+  dev.innerHTML = `<div class="ctl">
+      <div class="seg" role="group" aria-label="Device"><button type="button" data-mode="desktop" aria-pressed="true">Desktop</button><button type="button" data-mode="mobile" aria-pressed="false">Mobile</button></div>
+      <div class="right"><span class="status off"><i></i><span>Loading</span></span><button type="button" class="xbtn rbtn" aria-label="Back to the site's home page" title="Back to the site's home page"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10.5 6a4.5 4.5 0 1 1-1.4-3.3M10.6 1v2.6H8"/></svg><span>Restart</span></button><button type="button" class="xbtn ebtn" aria-expanded="false"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 4V1h3M11 4V1H8M1 8v3h3M11 8v3H8"/></svg><span>Expand</span></button></div>
+    </div>
+    <div class="viewport desktop"><div class="chrome"><i></i><i></i><i></i><span>${host}</span></div>
+      <div class="screenwrap" data-lenis-prevent><img alt="${name} screenshot" loading="lazy" decoding="async"><div class="mock"><div class="mn"><b>${name}</b><i></i></div><div class="mh"><b>${name}</b><i></i><i></i><u></u></div><div class="mc"><i></i><i></i><i></i></div></div></div>
+      <button type="button" class="cover" aria-label="Explore ${name} inside this window"><span>Click to explore · scroll inside</span></button>
+      <button type="button" class="done${touch ? ' touch' : ''}">Done</button>
+    </div>`;
+  const vp = dev.querySelector('.viewport'), wrap = dev.querySelector('.screenwrap'), img = wrap.querySelector('img'), cover = dev.querySelector('.cover'), coverTxt = cover.querySelector('span'),
+        done = dev.querySelector('.done'), xbtn = dev.querySelector('.ebtn'), rbtn = dev.querySelector('.rbtn'), xTxt = xbtn.querySelector('span'), status = dev.querySelector('.status'), statusTxt = status.querySelector('span');
+  let mode = 'desktop', iframe = null, leaveTimer = null;
+  const coverDefault = touch ? 'Tap to explore · scroll inside' : 'Click to explore · scroll inside'; coverTxt.textContent = coverDefault;
+
+  function loadShot(){ const list = shots[mode](url); let i = 0; img.classList.remove('loaded'); img.style.display = ''; img.onerror = () => { i++; if (i < list.length) img.src = list[i]; else img.style.display = 'none'; }; img.onload = () => img.classList.add('loaded'); img.src = list[0]; }
+  /* the site renders at a true desktop or phone width and is scaled to fit the window */
+  function fit(){ if (!iframe) return; const cw = wrap.clientWidth, ch = wrap.clientHeight; if (!cw || !ch) return;
+    let w = BASE[mode], sc = cw / w; if (mode === 'desktop' && sc > 1) { sc = 1; w = cw; }
+    iframe.style.width = w + 'px'; iframe.style.height = Math.ceil(ch / sc) + 'px'; iframe.style.transform = `scale(${sc})`; }
+  function load(){
+    if (iframe || framesBlocked) return;
+    iframe = document.createElement('iframe'); iframe.title = name + ' — live site';
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms');   /* no pop-ups, no navigating this page away */
+    iframe.addEventListener('load', () => { if (framesBlocked) return; vp.classList.add('loaded'); status.classList.remove('off'); statusTxt.textContent = 'Live'; coverTxt.textContent = coverDefault; });
+    iframe.src = url; wrap.appendChild(iframe); fit();
+    setTimeout(() => { if (!vp.classList.contains('loaded') && !framesBlocked) { statusTxt.textContent = 'Slow to answer'; coverTxt.textContent = 'Still loading the live site'; } }, 15000);
+  }
+  function activate(){ if (framesBlocked) return; load(); clearTimeout(leaveTimer); vp.classList.add('active'); }
+  function deactivate(){ vp.classList.remove('active'); }
+  function setMode(m){ mode = m; vp.classList.toggle('desktop', m === 'desktop'); vp.classList.toggle('mobile', m === 'mobile'); dev.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m)); loadShot(); requestAnimationFrame(fit); setTimeout(() => { fit(); if (!expanded) ScrollTrigger.refresh(); }, 640); }
+  function expand(on){
+    if (on && framesBlocked) return;
+    if (on && expanded && expanded !== api) expanded.expand(false);
+    vp.style.transition = 'none'; requestAnimationFrame(() => requestAnimationFrame(() => { vp.style.transition = ''; }));
+    p.classList.toggle('exp', on); document.body.classList.toggle('exp', on); veil.classList.toggle('on', on);
+    xbtn.setAttribute('aria-expanded', on); xTxt.textContent = on ? 'Close' : 'Expand';
+    expanded = on ? api : null;
+    if (on) { if (lenis) lenis.stop(); document.documentElement.style.overflow = 'hidden'; activate(); }
+    else { if (lenis) lenis.start(); document.documentElement.style.overflow = ''; deactivate(); }
+    requestAnimationFrame(fit); setTimeout(fit, 60);
+  }
+  function block(){ dev.classList.add('noframes'); vp.classList.add('blocked'); vp.classList.remove('active', 'loaded'); if (iframe) { iframe.remove(); iframe = null; } status.classList.add('off'); statusTxt.textContent = 'Preview only'; coverTxt.textContent = 'The live site loads in this window on the published website'; if (expanded === api) expand(false); }
+  const api = { host, block, expand, deactivate, fit };
+  devices.push(api);
+
+  dev.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  cover.addEventListener('click', activate);
+  done.addEventListener('click', () => { if (expanded === api) expand(false); else deactivate(); });
+  xbtn.addEventListener('click', () => expand(expanded !== api));
+  rbtn.addEventListener('click', () => { if (!iframe || framesBlocked) return; vp.classList.remove('loaded'); status.classList.add('off'); statusTxt.textContent = 'Loading'; iframe.src = url; });
+  /* leave the window and the page scrolls again */
+  vp.addEventListener('pointerleave', () => { if (expanded === api || touch) return; leaveTimer = setTimeout(deactivate, 220); });
+  vp.addEventListener('pointerenter', () => clearTimeout(leaveTimer));
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(wrap); else addEventListener('resize', fit);
+  /* once most of the window has scrolled away, hand scrolling back to the page */
+  new IntersectionObserver(es => { if (!es[0].isIntersecting && expanded !== api) deactivate(); }, { threshold: .3 }).observe(vp);
+  /* start loading the real site shortly before the window scrolls into view */
+  new IntersectionObserver((es, ob) => { if (es[0].isIntersecting) { load(); ob.disconnect(); } }, { rootMargin: '500px 0px' }).observe(dev);
+  if (isMobile) setMode('mobile'); else loadShot();
+
+  if (reduce) return;
+  gsap.fromTo(dev, { rotateY: idx % 2 ? 30 : -30, rotateX: 9, z: -280, opacity: 0 }, { rotateY: 0, rotateX: 0, z: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top 95%', end: 'top 40%', scrub: 1 } });
+  gsap.fromTo(p.querySelector('.copy'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top 85%', end: 'top 50%', scrub: 1 } });
+});
+veil.addEventListener('click', () => { if (expanded) expanded.expand(false); });
+addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (expanded) expanded.expand(false); else devices.forEach(d => d.deactivate()); });
+})();
+</script>
+
+</body>
+</html>
