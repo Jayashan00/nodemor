@@ -1,4 +1,4 @@
-# Nodemor — the journey (v11)
+# Nodemor — the journey (v12)
 
 Static, no build step. Deploy on Vercel (preset: Other).
 
@@ -47,11 +47,36 @@ then shows an outline of the site with a notice, and Expand / Restart are hidden
 Screenshots (shown while a site loads) come from image.thum.io, with microlink as backup, or from
 `/screenshots` if you bake them: `npm i -D playwright && npx playwright install chromium && npm run shots`.
 
+## Contact form (no backend)
+The form in the contact section posts to FormSubmit (formsubmit.co), a free form-to-email relay, which
+emails each message to **nodemorsolutions@gmail.com**. Nothing runs on your side and no password is used.
+
+**One-time activation (required):** after deploying, open the live site and send yourself a test message.
+FormSubmit emails that inbox an activation link (check Spam too). Click it once. From then on every
+message arrives in the inbox. Until then the form shows a "one-time setup needed" note.
+
+After activating, FormSubmit gives you a private code to use instead of the plain address. To hide the
+email from the page source, replace `TO` in `ENDPOINT` (search for "CONTACT FORM" in index.html).
+
+If the service cannot be reached, the visitor is offered two buttons that carry their typed message:
+WhatsApp and email. Enquiries pass through FormSubmit's servers on the way to you; it has no paid tier
+or uptime guarantee. If you later want your own sending, a Vercel serverless function is the upgrade.
+
+Never put the mailbox password in this site or the repository: everything in a frontend is public.
+
+Contact details used: phone 071 924 7009 (tel:+94719247009), WhatsApp wa.me/94719247009,
+email nodemorsolutions@gmail.com. Change them in the contact section and footer of index.html.
+
+## Brand
+`img/logo.png` (loader and navigation), `img/logo-mark.png`, `img/favicon.png` are cut from your logo
+artwork with the black background made transparent. Replace the files to update them.
+
 ## Assets
 - earth_day / earth_night / earth_clouds / earth_spec / moon / sky_* — NASA-derived maps as distributed
   with the open-source three.js and three-globe projects. astronaut.jpg — NASA spacewalk photograph.
-  NASA imagery is free to use; NASA asks that it not be used to imply endorsement.
+  NASA imagery is free to use; NASA asks that it not be used to imply endorsement. The on-page credit
+  line was removed at your request; this note is the only attribution.
 
-## Still to fill in
-WhatsApp number and email (contact section). The four About figures are marketing claims; keep only the
+## Still to check
+The four About figures are marketing claims; keep only the
 ones you can stand behind. The places and years on the stops were written from memory; verify before launch.

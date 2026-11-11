@@ -9,7 +9,7 @@
 <meta property="og:title" content="Nodemor — Software, built to sell">
 <meta property="og:description" content="AI systems, web platforms and websites. Not just beautiful, built to convert.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' font-style='italic' text-anchor='middle' fill='%23f3efe7'%3En%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -288,15 +288,75 @@ body.exp .nav{opacity:0;pointer-events:none}
 .project.exp .viewport.desktop{width:min(95vw,1560px);height:min(calc(100svh - 96px),980px);aspect-ratio:auto}
 .project.exp .viewport.mobile{height:min(calc(100svh - 96px),860px);width:auto;min-width:0;aspect-ratio:390/800}
 .project.exp .ctl{position:fixed;z-index:87;top:12px;left:50%;transform:translateX(-50%);margin:0;width:min(95vw,1560px);background:rgba(8,8,10,.6)}
+
+/* ---- brand logo ---- */
+.logo-img{display:inline-block;aspect-ratio:1056/273;background:url("img/logo.png") no-repeat left center/contain;vertical-align:middle}
+#pre .logo-img{display:block;width:min(360px,72vw);margin:0 auto;animation:logoIn 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes logoIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+#pre .bar{width:min(360px,72vw);margin:26px auto 14px}
+#pre .bar b{background:#7d29f7}
+.nav .brand{display:flex;align-items:center}
+.nav .brand .logo-img{height:34px}
+@media(max-width:760px){.nav .brand .logo-img{height:28px}}
+
+/* ---- contact: details + message form ---- */
+.contact{min-height:0;display:block;padding:clamp(110px,16vh,200px) 0 clamp(80px,12vh,140px)}
+.contact .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:start}
+@media(max-width:940px){.contact .cgrid{grid-template-columns:1fr}}
+.contact h2{font-size:clamp(46px,6.6vw,118px);line-height:.9}
+.contact .clede{margin-top:26px;max-width:38ch;color:var(--fg);opacity:.82;font-size:clamp(15px,1.2vw,18px);line-height:1.6}
+.cinfo{list-style:none;margin-top:40px;display:grid;gap:0;border-top:1px solid var(--line)}
+.cinfo li{display:grid;grid-template-columns:120px 1fr;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.cinfo a,.cinfo li>span:last-child{font-family:var(--serif);font-size:clamp(20px,1.9vw,27px);text-decoration:none;color:var(--fg);overflow-wrap:anywhere}
+.cinfo a{transition:color .25s}
+.cinfo a:hover{color:var(--gold)}
+@media(max-width:520px){.cinfo li{grid-template-columns:1fr;gap:4px}}
+.cform{position:relative;background:rgba(10,10,13,.74);border:1px solid rgba(243,239,231,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:clamp(22px,3vw,40px)}
+.cform h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,2.6vw,38px);line-height:1;margin-bottom:6px}
+.cform .sub{color:var(--dim);font-size:14px;margin-bottom:24px}
+.cform .frow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.cform .frow{grid-template-columns:1fr}}
+.cform label{display:block;margin-bottom:18px}
+.cform label>span{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--dim);margin-bottom:8px}
+.cform label>span em{font-style:normal;letter-spacing:.08em;text-transform:none;color:var(--dim2);font-weight:400}
+.cform input,.cform select,.cform textarea{width:100%;font:inherit;font-size:16px;color:var(--fg);background:rgba(243,239,231,.045);border:1px solid var(--line);border-radius:0;padding:13px 14px;outline:none;transition:border-color .25s,background .25s;-webkit-appearance:none;appearance:none}
+.cform textarea{resize:vertical;min-height:132px;line-height:1.5}
+.cform select{background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:38px}
+.cform select option{background:#101013;color:var(--fg)}
+.cform input:focus,.cform select:focus,.cform textarea:focus{border-color:var(--gold);background:rgba(243,239,231,.07)}
+.cform [aria-invalid="true"]{border-color:#e5484d}
+.cform .err{display:block;min-height:0;margin-top:6px;font-size:12.5px;color:#ff8589;letter-spacing:0;text-transform:none;font-weight:400}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cform .factions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
+.cform .btn{margin-top:0;cursor:pointer;background:transparent;font-family:inherit;color:var(--fg)}
+.cform .btn.gold{color:var(--gold)}
+.cform .btn:hover{color:var(--bg)}
+.cform .btn[disabled]{opacity:.6;cursor:progress}
+.cform .fnote{font-size:13.5px;line-height:1.5;color:var(--dim);flex:1;min-width:200px}
+.cform .fnote.bad{color:#ff8589}
+.cform .fall{display:none;margin-top:16px;gap:10px;flex-wrap:wrap}
+.cform .fall.on{display:flex}
+.cform .fall a{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;text-decoration:none;padding:12px 14px;border:1px solid var(--line);color:var(--fg);transition:background .25s,color .25s}
+.cform .fall a:hover{background:var(--fg);color:var(--bg)}
+.cform .okpane{display:none;text-align:left;padding:10px 0 4px}
+.cform.sent .okpane{display:block}
+.cform.sent .fields{display:none}
+.cform .okpane .tick{width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);margin-bottom:20px}
+.cform .okpane .tick svg{width:22px;height:22px}
+.cform .okpane h3{margin-bottom:12px}
+.cform .okpane p{color:var(--dim);line-height:1.65;max-width:40ch;margin-bottom:22px}
+footer .fc{display:flex;gap:18px;flex-wrap:wrap}
+footer .fc a{text-decoration:none}
+footer .fc a:hover{color:var(--fg)}
 </style>
 </head>
 <body>
 
-<div id="pre"><div class="in"><div class="logo">nodemor<i>.</i></div><div class="bar"><b id="preB"></b></div><div class="lab" id="preT">Preparing for launch</div></div></div>
+<div id="pre"><div class="in"><span class="logo-img" role="img" aria-label="Nodemor"></span><div class="bar"><b id="preB"></b></div><div class="lab" id="preT">Preparing for launch</div></div></div>
 
 <nav class="nav">
-  <a class="brand" href="#top">nodemor<i>.</i></a>
-  <ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li></ul>
+  <a class="brand" href="#top" aria-label="Nodemor, back to top"><span class="logo-img"></span></a>
+  <ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li></ul>
   <a class="cta" href="#contact">Get started</a>
 </nav>
 
@@ -417,22 +477,47 @@ body.exp .nav{opacity:0;pointer-events:none}
 
   <section class="contact" id="contact">
     <div class="bgimg" id="contactBg"></div>
-    <div class="wrap">
-      <span class="lab" style="display:block;margin-bottom:24px">Get in touch</span>
-      <h2 class="rv">Let's make it<br><i>unforgettable.</i></h2>
-      <div class="rowc">
-        <a class="btn gold" href="https://wa.me/94000000000" target="_blank" rel="noopener">Start a WhatsApp conversation</a>
-        <a class="btn" href="mailto:hello@nodemor.com">hello@nodemor.com</a>
+    <div class="wrap cgrid">
+      <div class="cleft">
+        <span class="lab" style="display:block;margin-bottom:24px">Get in touch</span>
+        <h2 class="rv">Let's make it<br><i>unforgettable.</i></h2>
+        <p class="clede rv">Tell us what you want to build. Send a message here, call, or write on WhatsApp. We reply within 24 hours.</p>
+        <ul class="cinfo">
+          <li><span class="lab">Call</span><a href="tel:+94719247009">071 924 7009</a></li>
+          <li><span class="lab">WhatsApp</span><a href="https://wa.me/94719247009" target="_blank" rel="noopener">+94 71 924 7009</a></li>
+          <li><span class="lab">Email</span><a href="mailto:nodemorsolutions@gmail.com">nodemorsolutions@gmail.com</a></li>
+          <li><span class="lab">Studio</span><span>Sri Lanka, working worldwide</span></li>
+        </ul>
       </div>
-      <div class="meta">
-        <div><span class="lab">Studio</span><span>Sri Lanka</span></div>
-        <div><span class="lab">Working</span><span>Worldwide</span></div>
-        <div><span class="lab">Reply within</span><span>24 hours</span></div>
+
+      <div class="cform rv" id="cform" role="form" aria-labelledby="cformTitle">
+        <div class="fields">
+          <h3 id="cformTitle">Send us a message</h3>
+          <p class="sub">It goes straight to our inbox.</p>
+          <div class="frow">
+            <label><span>Your name</span><input id="cf_name" name="name" type="text" autocomplete="name" maxlength="80"><b class="err" id="cf_name_e"></b></label>
+            <label><span>Email</span><input id="cf_email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120"><b class="err" id="cf_email_e"></b></label>
+          </div>
+          <div class="frow">
+            <label><span>Phone or WhatsApp <em>(optional)</em></span><input id="cf_phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30"></label>
+            <label><span>What do you need?</span><select id="cf_service" name="service"><option>A website</option><option>A web platform or booking system</option><option>An AI assistant or automation</option><option>Marketing and growth</option><option>Something else</option></select></label>
+          </div>
+          <label><span>Your message</span><textarea id="cf_message" name="message" rows="5" maxlength="3000"></textarea><b class="err" id="cf_message_e"></b></label>
+          <input class="hp" id="cf_hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="factions"><button type="button" class="btn gold" id="cf_send"><span>Send message</span></button><p class="fnote" id="cf_note" role="status" aria-live="polite"></p></div>
+          <div class="fall" id="cf_fall"><a id="cf_wa" target="_blank" rel="noopener">Send by WhatsApp instead</a><a id="cf_mail">Send by email instead</a></div>
+        </div>
+        <div class="okpane" id="cf_ok" tabindex="-1">
+          <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Message sent.</h3>
+          <p id="cf_okText"></p>
+          <button type="button" class="btn" id="cf_again"><span>Send another message</span></button>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer><div class="wrap lab"><span>© 2026 Nodemor</span><span>Earth, Moon and astronaut imagery: NASA</span><a href="#top">Back to top</a></div></footer>
+  <footer><div class="wrap lab"><span>© 2026 Nodemor</span><span class="fc"><a href="mailto:nodemorsolutions@gmail.com">nodemorsolutions@gmail.com</a><a href="tel:+94719247009">071 924 7009</a></span><a href="#top">Back to top</a></div></footer>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -908,6 +993,70 @@ document.querySelectorAll('.project').forEach((p, idx) => {
 });
 veil.addEventListener('click', () => { if (expanded) expanded.expand(false); });
 addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (expanded) expanded.expand(false); else devices.forEach(d => d.deactivate()); });
+/* ======================= CONTACT FORM (no backend) =======================
+   Posts to FormSubmit, which emails each message to the address in ENDPOINT.
+   One-time setup: the first message triggers an activation email to that inbox; click the link in it once.
+   After activating you can swap the address in ENDPOINT for the private code FormSubmit gives you. */
+(function(){
+  const TO = 'nodemorsolutions@gmail.com', WA_NUMBER = '94719247009';
+  const ENDPOINT = 'https://formsubmit.co/ajax/' + TO;
+  const $ = id => document.getElementById(id);
+  const box = $('cform'), send = $('cf_send'), sendTxt = send.querySelector('span'), note = $('cf_note'), fall = $('cf_fall');
+  const f = { name: $('cf_name'), email: $('cf_email'), phone: $('cf_phone'), service: $('cf_service'), message: $('cf_message'), hp: $('cf_hp') };
+  let busy = false, sendingBlockedHere = false, startedAt = 0;
+  Object.values(f).forEach(el => el.addEventListener('focus', () => { if (!startedAt) startedAt = Date.now(); }, { once: true }));
+  document.addEventListener('securitypolicyviolation', e => { if (e.blockedURI && e.blockedURI.indexOf('formsubmit') > -1) sendingBlockedHere = true; });
+
+  function setErr(key, msg){ const el = f[key], e = $('cf_' + key + '_e'); el.setAttribute('aria-invalid', msg ? 'true' : 'false'); if (e) e.textContent = msg || ''; }
+  function validate(){
+    const v = { name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(), service: f.service.value, message: f.message.value.trim() };
+    let ok = true, first = null;
+    const bad = (k, m) => { setErr(k, m); ok = false; if (!first) first = f[k]; };
+    v.name.length < 2 ? bad('name', 'Please tell us your name.') : setErr('name', '');
+    /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email) ? setErr('email', '') : bad('email', 'Please enter a valid email so we can reply.');
+    v.message.length < 10 ? bad('message', 'Please add a few words about what you need.') : setErr('message', '');
+    if (first) first.focus();
+    return ok ? v : null;
+  }
+  ['name', 'email', 'message'].forEach(k => f[k].addEventListener('input', () => { if (f[k].getAttribute('aria-invalid') === 'true') setErr(k, ''); }));
+
+  const asText = v => `Name: ${v.name}\nEmail: ${v.email}${v.phone ? '\nPhone: ' + v.phone : ''}\nNeeds: ${v.service}\n\n${v.message}`;
+  function offerFallback(v, msg){
+    note.textContent = msg; note.classList.add('bad');
+    $('cf_wa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent('Hello Nodemor,\n\n' + asText(v));
+    $('cf_mail').href = 'mailto:' + TO + '?subject=' + encodeURIComponent('Enquiry from ' + v.name) + '&body=' + encodeURIComponent(asText(v));
+    fall.classList.add('on');
+  }
+  function done(v){
+    $('cf_okText').textContent = `Thank you, ${v.name.split(' ')[0]}. Your message is in our inbox and we will reply to ${v.email} within 24 hours.`;
+    box.classList.add('sent'); $('cf_ok').focus({ preventScroll: true });
+    [f.name, f.email, f.phone, f.message].forEach(el => el.value = ''); f.service.selectedIndex = 0;
+  }
+  async function submit(){
+    if (busy) return;
+    note.textContent = ''; note.classList.remove('bad'); fall.classList.remove('on');
+    const v = validate(); if (!v) return;
+    if (f.hp.value || (startedAt && Date.now() - startedAt < 1500)) { done(v); return; }      /* filled the hidden field or answered impossibly fast: a bot. pretend it worked */
+    busy = true; send.disabled = true; sendTxt.textContent = 'Sending…';
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);
+    try {
+      const res = await fetch(ENDPOINT, { method: 'POST', signal: ctl.signal, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name: v.name, email: v.email, phone: v.phone || 'not given', needs: v.service, message: v.message,
+          _subject: 'New enquiry from ' + v.name + ' (nodemor.com)', _replyto: v.email, _template: 'table', _captcha: 'false' }) });
+      let data = {}; try { data = await res.json(); } catch (e) {}
+      if (res.ok && String(data.success) === 'true') done(v);
+      else if (/activat/i.test(data.message || '')) offerFallback(v, 'One-time setup needed: open the ' + TO + ' inbox, find the email from FormSubmit and click the activation link. After that every message arrives automatically.');
+      else offerFallback(v, 'We could not send that just now. Your message is not lost: send it by WhatsApp or email with one tap.');
+    } catch (e) {
+      await new Promise(r => setTimeout(r, 150));          /* give the browser a moment to report why the request was stopped */
+      offerFallback(v, sendingBlockedHere ? 'Sending is switched off inside this preview. On the published website this message goes to the inbox.' : 'We could not reach the mail service. Your message is not lost: send it by WhatsApp or email with one tap.');
+    } finally { clearTimeout(timer); busy = false; send.disabled = false; sendTxt.textContent = 'Send message'; }
+  }
+  send.addEventListener('click', submit);
+  [f.name, f.email, f.phone].forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } }));
+  $('cf_again').addEventListener('click', () => { box.classList.remove('sent'); note.textContent = ''; f.name.focus(); });
+})();
+
 })();
 </script>
 
