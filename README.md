@@ -1,6 +1,13 @@
-# Nodemor — the journey (v12)
+# Nodemor — nodemor.io (v13)
 
-Static, no build step. Deploy on Vercel (preset: Other).
+Static site: plain HTML, CSS and JavaScript. No build step, no server code.
+
+## Hosting
+Works on any static host. On Hostinger shared hosting, upload the contents of this folder into
+`public_html` (index.html must sit directly inside it, not in a sub-folder). `.htaccess` is included:
+it forces https, drops www, switches on compression and caching, and removes the header that would
+stop the project windows from loading your own sites.
+On Vercel: Framework Preset "Other", no build command, output directory `.`.
 
 ## The flight
 `index.html` renders a live WebGL scene (three.js) from real imagery in `/img`: NASA Blue Marble Earth
@@ -66,6 +73,10 @@ Never put the mailbox password in this site or the repository: everything in a f
 
 Contact details used: phone 071 924 7009 (tel:+94719247009), WhatsApp wa.me/94719247009,
 email nodemorsolutions@gmail.com. Change them in the contact section and footer of index.html.
+
+## Files
+index.html, img/, .htaccess (Apache rules), robots.txt, sitemap.xml, package.json and scripts/ (only
+for the optional screenshot script). package.json and scripts/ are not needed on the server.
 
 ## Brand
 `img/logo.png` (loader and navigation), `img/logo-mark.png`, `img/favicon.png` are cut from your logo

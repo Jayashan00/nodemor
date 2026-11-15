@@ -3,12 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nodemor — Software, built to sell</title>
+<title>Nodemor — Software, built to sell | nodemor.io</title>
 <meta name="description" content="Nodemor is a software studio from Sri Lanka. AI systems, web platforms and websites that help ambitious businesses look world-class and sell better. Four products live.">
 <meta name="theme-color" content="#08080a">
 <meta property="og:title" content="Nodemor — Software, built to sell">
 <meta property="og:description" content="AI systems, web platforms and websites. Not just beautiful, built to convert.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://nodemor.io/">
+<meta property="og:url" content="https://nodemor.io/">
+<meta property="og:site_name" content="Nodemor">
+<meta property="og:image" content="https://nodemor.io/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -673,7 +678,7 @@ const shine = new THREE.PointLight(0x9cc4ff, 1.1, 8, 2); shine.position.set(0, 0
 /* ======================= STOPS ON THE GLOBE ======================= */
 /* each stop: where a piece of our stack was created. at = scroll progress when the route arrives */
 const STOPS = [
-  { at: 1.10, lat: 46.23, lon: 6.05,    name: 'The Web',       where: 'CERN, Geneva · 1989',            img: 'st_01', pos: '50% 50%', code: ['<a href="', 'https://nodemor.com', '">'],
+  { at: 1.10, lat: 46.23, lon: 6.05,    name: 'The Web',       where: 'CERN, Geneva · 1989',            img: 'st_01', pos: '50% 50%', code: ['<a href="', 'https://nodemor.io', '">'],
     text: 'HTML, URLs and HTTP were invented here. Every site and platform we ship still stands on those three ideas.', chips: ['HTML', 'HTTP', 'Open standards'] },
   { at: 1.45, lat: 60.17, lon: 24.94,   name: 'Linux',         where: 'Helsinki · 1991',                img: 'st_02', pos: '50% 50%', code: ['$ ', 'uname -a', '  # every server we deploy to'],
     text: 'The operating system under almost every server on the internet, including the ones that run your product.', chips: ['Servers', 'Containers', 'Uptime'] },
@@ -1042,7 +1047,7 @@ addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (expanded)
     try {
       const res = await fetch(ENDPOINT, { method: 'POST', signal: ctl.signal, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ name: v.name, email: v.email, phone: v.phone || 'not given', needs: v.service, message: v.message,
-          _subject: 'New enquiry from ' + v.name + ' (nodemor.com)', _replyto: v.email, _template: 'table', _captcha: 'false' }) });
+          _subject: 'New enquiry from ' + v.name + ' (nodemor.io)', _replyto: v.email, _template: 'table', _captcha: 'false' }) });
       let data = {}; try { data = await res.json(); } catch (e) {}
       if (res.ok && String(data.success) === 'true') done(v);
       else if (/activat/i.test(data.message || '')) offerFallback(v, 'One-time setup needed: open the ' + TO + ' inbox, find the email from FormSubmit and click the activation link. After that every message arrives automatically.');
